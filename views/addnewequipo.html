@@ -1,0 +1,253 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+	<div class="col-lg-10">
+            <div class="ibox float-e-margins">
+						<div class="ibox-title text-center">
+                            <h5>Registrar equipo</h5>
+      
+                        </div>
+                        <div class="ibox-content">
+                            <form class="form-horizontal" id='toclearform'>
+                               
+								<div class="form-group"><label class="col-sm-2 control-label">Nombre</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="Nombre" id='nombre' class="form-control"></div>
+								</div>
+								<div class="form-group"><label class="col-sm-2 control-label">Modelo</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="Modelo" id='Modelo' class="form-control"></div>
+								</div>
+								<div class="form-group"><label class="col-sm-2 control-label">Marca</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="Marca" id='Marca' class="form-control"></div>
+								</div>
+								<div class="form-group"><label class="col-sm-2 control-label">Cantidad</label>
+                                    <div class="col-sm-10"><input type="number" placeholder="Cantidad" id='cantidad' class="form-control"></div>
+								</div>
+								<div class="form-group"><label class="col-sm-2 control-label" >Categoria</label>
+                                    <div class="col-sm-10">
+									<select class="form-control" name="CategoriaEquipo" id='equipoCategoria' onchange='chargeSubcategory(this.value)'  ng-controller="getCategoriaCtlr">
+                                        <option value=0 selected disabled >Categoria</option>
+                                        <option value={{categorias["IdCategoria"]}}  ng-repeat="categorias in Equipocategorias">{{categorias["Nombre"]}}</option>
+     
+                                    </select>
+									</div>
+								</div>
+                               <div class="form-group"><label class="col-sm-2 control-label" >Subcategoria</label>
+                                    <div class="col-sm-10" id='contenSubcat'>
+									</div>
+								</div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Serializado</label>
+								 <div class="col-sm-10">
+                                        <div class="i-checks"><label> <input type="checkbox" id="statusSerial" value=""> <i></i></label></div>
+                                     </div>
+								</div>
+								<div class="form-group"><label class="col-sm-2 control-label">Número de serie</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="Número de serie"  id='noserial' class="form-control"></div>
+								</div>
+								
+								<div class="form-group"><label class="col-sm-2 control-label" >Sucursal</label>
+                                    <div class="col-sm-10">
+									<select class="form-control" name="sucursal" id='sucursal' ng-controller="SucursalesCtrl">
+                                        <option value=0 selected disabled >Sucursales</option>
+                                        <option value={{sucursal["idSucursal"]}}  ng-repeat="sucursal in sucursales">{{sucursal["Nombre"]}}</option>
+    
+                                    </select>
+									</div>
+								</div>
+								
+                                <div class="form-group">
+									<label class="col-sm-2 control-label">Descripcion</label>
+									<div class="col-sm-10"><textarea class="form-control" rows="4" id='areaDescripcion' placeholder='Descripcion'></textarea></div>
+								</div>
+								
+								<div class="form-group"><label class="col-sm-2 control-label">Foto</label>
+                                  <div class="col-sm-10">
+                                      <div class="fileinput fileinput-new" data-provides="fileinput">
+                                          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                          <div>
+                                              <span class="btn btn-default btn-file"><span class="fileinput-new">Seleccionar imagen</span><span class="fileinput-exists">Cambiar</span><input type="file" name="imgUpl" id="imguplo"></span>
+                                              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+                                          </div>
+                                      </div>
+								  </div>
+								</div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-white" type="submit">Cancelar</button>
+                                       <button type="button" id="btnAddCategoria" data-toggle="modal" data-target="#myModal"  class="btn btn-info" >Añadir</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+              </div>
+    </div>
+</div>
+</div>
+<div id='testRegistrobd'>
+	
+</div>
+
+<link href="css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+<!-- Jasny -->
+<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	function chargeSubcategory(valorSel){
+	$.post('views/reloadAddSubcatsel.php',{idcat:valorSel}, function(data){
+		$('#contenSubcat').html(data);
+		});	
+		}
+		
+	function guardarss()
+	{
+		var name = document.getElementById("nombre").value;
+		var model = document.getElementById("Modelo").value;
+		var marca = document.getElementById("Marca").value;
+		var eCat = document.getElementById("equipoCategoria").value;
+		var eSubcat = document.getElementById("equipoSubCategoria").value;
+		var serializado=1;
+		var Serial = document.getElementById("noserial").value;
+		var areaDes = document.getElementById("areaDescripcion").value;
+		var foto = document.getElementById("imguplo").value;
+		alert("ok");
+			$.post('GuardarEquipo.php',{nombre:name,modelo:model,Marca:marca,equipocategoria:eCat,equiposubcategoria:eSubcat,Seriali:serializado,noSerie:Serial,AreaDescripcion:areaDes}, function(data){
+			$('#tablecategoria').html(data);
+			});	
+		
+	}
+	
+	function saveDataequip(serializadoX,serial,areadescripcion,cant,Marca){
+	
+	var inputFileImage = document.getElementById("imguplo");
+	var name = document.getElementById("nombre").value;
+	var model = document.getElementById("Modelo").value;
+	var marca = Marca;
+	var canti=cant;
+	var eCat = document.getElementById("equipoCategoria").value;
+	var eSubcat = document.getElementById("equipoSubCategoria").value;
+	var serializado=serializadoX;
+	var Serial = serial;
+	var sucursales = document.getElementById("sucursal").value;
+	var areaDes = areadescripcion;
+	var file = inputFileImage.files[0];
+	
+	var data = new FormData();
+	
+	data.append('archivo',file);
+	data.append('nombre',name);
+	data.append('modelo',model);
+	data.append('Marca',marca);
+	data.append('equipocategoria',eCat);
+	data.append('equiposubcategoria',eSubcat);
+	data.append('Seriali',serializado);
+	data.append('noSerie',Serial);
+	data.append('sucur',sucursales);
+	data.append('qty',canti)
+	data.append('AreaDescripcion',areaDes);
+	
+	
+	var url = "views/GuardarEquipo.php";
+	$.ajax({
+	url:url,
+	type:'POST',
+	contentType:false,
+	data:data,
+	processData:false,
+	cache:false,
+		success: function (data) {	
+			$('#testRegistrobd').html(data);},
+			
+		error: function (r) { 
+                  alert("Error del servidor");
+              }
+	});
+	document.getElementById("toclearform").reset();
+	}
+	
+	function validarCampos(){
+		
+		var name = document.getElementById("nombre").value;
+		var model = document.getElementById("Modelo").value;
+		var marca = document.getElementById("Marca").value;
+		var eCat = document.getElementById("equipoCategoria").value;
+		var serie=document.getElementById("statusSerial");
+		if(name.trim()=="" || model.trim()==""){
+				alert("Algunos campos estan vacios");
+		}
+		else{
+			if(eCat==0){
+				alert('debes seleccionar una categoria');
+			}else
+			{
+				var eSubcat = document.getElementById("equipoSubCategoria").value;
+				var serializado;
+				if(eSubcat==0){
+					alert('debes seleccionar una Subcategoria');
+					
+				}else{
+					var sucursales = document.getElementById("sucursal").value;
+					if(sucursales == 0){
+						alert("Debes seleccionar una sucursal");
+					}
+					else{
+						var cantidad=document.getElementById("cantidad").value;
+						var areaDes = document.getElementById("areaDescripcion").value;
+						var marca = document.getElementById("Marca").value;
+						var Serial;
+						var inputFileImage = document.getElementById("imguplo").value;
+						
+						if(serie.checked){
+							serializado=1;
+							Serial = document.getElementById("noserial").value;
+							if(areaDes.trim()==""){
+								areaDes="Sin descripcion";
+							}
+							if(cantidad.trim()==""){
+							cantidad=1;
+							}
+							if(marca.trim()==""){
+								marca = "Desconocida";
+							}
+							saveDataequip(serializado,Serial,areaDes,cantidad,marca);
+						}
+						else{
+							
+							serializado=0;
+							Serial="NULL";
+							if(areaDes.trim()==""){
+								areaDes="Sin descripcion";
+							}
+							if(cantidad.trim()==""){
+							cantidad=1;
+							}
+								if(marca.trim()==""){
+								marca = "Desconocida";
+							}
+							saveDataequip(serializado,Serial,areaDes,cantidad,marca);
+						}
+					}
+					
+				}
+			}
+		}
+		
+		}
+</script>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Eliminar</h4>
+      </div>
+      <div class="modal-body">
+        <p>Son correctos estos datos?</p>
+      </div>
+      <div class="modal-footer">
+		<button type="button" class="btn btn-default" onclick='validarCampos()' data-dismiss="modal" id='btnEliminar' onclick="validarCampos()">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

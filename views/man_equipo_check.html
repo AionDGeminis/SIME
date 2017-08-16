@@ -1,0 +1,42 @@
+﻿<div class="wrapper wrapper-content animated fadeInRight" data-ng-controller="EquiposCtrl">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Mantenimiento equipo con checklist especifico</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="ibox-content">
+            <table class="table">
+                <tr>
+                    <th>Equipo</th>
+                    <th>Tareas</th>
+                    <th>Frecuencia de mantenimiento</th>
+                </tr>
+                <tbody>
+                    <tr ng-repeat="equipoInd in getEquipoByIdArea">
+                        <td>
+                            {{equipoInd.nombrequipo}}
+                        </td>
+                        <td>
+                            <div ng-if="lista.idEquipo == equipoInd.idequipo" ng-repeat="lista in checkList">
+                            <p ng-if="itemLista.idcheck == lista.idCheck" ng-repeat="itemLista in tablaIds">
+                                <span class="badge">
+                                    {{itemLista.nombre}} <input type="checkbox">
+                                </span>
+                            </p>
+                         </div>
+                        </td>
+                        <td>
+                            <p ng-repeat="lista in checkList" ng-if="lista.idEquipo == equipoInd.idequipo">
+                                {{lista.peridoServicio}}
+                            </p>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

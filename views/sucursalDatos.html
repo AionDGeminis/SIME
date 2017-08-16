@@ -1,0 +1,64 @@
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="SucursalCtrl">
+    <div class="row">
+        <div class="col-lg-11">
+            <div class="text-center m-t-lg">
+                <div class="ibox-title" style="background:#0a1434; color:white;">
+                    <h1><strong>Cambiar datos de Sucursal</strong></h1>                  
+                </div><br />
+               
+				<div class="ibox-title">
+                            <h5>Formulario para cambiar informacion de sucursales de Alcatraz Gym</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal" name="signup_form"">
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Sucursal</label>
+                            <div class="col-lg-10">
+                                <input type="text" placeholder="Sucursal" ng-model="nombre" class="form-control">
+
+                            </div>
+                            <br />
+                        </div><br />
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Direccion</label>
+                            <div class="col-lg-10">
+                                <input type="text" placeholder="Direccion de la sucursal" ng-model="direccion" class="form-control">                                
+                            </div>
+                            <br />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Telefono</label>
+                            <div class="col-lg-10">
+                                <input type="text" placeholder="Telefono de la sucursal" ng-model="telefono" class="form-control">
+                            </div>
+                            <br />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Mail</label>
+
+                            <div class="col-lg-10"><input type="text" placeholder="Mail de la sucursal" ng-model="email" class="form-control"></div>
+                           
+                        </div>
+
+                        <div class="form-group" >
+                            <label class="col-lg-2 control-label">Horario</label>
+
+                            <div class="col-lg-10"><input type="email" placeholder="Horario de la sucursal (d-d / apertura - cierre)" ng-model="horario" class="form-control"></div>
+                                                   
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button type="button" id="sucEnc" ng-click="saveSucursal" class="btn btn-info">Registrar cambios</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

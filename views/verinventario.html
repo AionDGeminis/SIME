@@ -1,0 +1,128 @@
+    <style>
+        #rowInv{
+            background:#fff; margin:0;
+             padding:0;
+        }
+       #navInven{
+          background-image:url('views/../img/assets/pattern3.jpg');
+          width:100%;
+          margin-left:0;
+       }
+       #navTopMenu{
+		   background:#000;
+		   margin:0;
+		   padding:0;
+	   }
+	   .ibox{
+		box-shadow:none;
+		transition:box-shadow 0.3s;
+	   }
+	   .ibox:hover{
+			background:red;
+			box-shadow:0px 0px 35px 0px #bdc3c7;
+	   }
+	   
+    </style>
+ 
+    <div id="rowInv" class="wrapper col-lg-12 white-bg animated fadeInRight" style="min-height:750px;" data-ng-controller="EquiposCtrl" ng-init="update(1)">
+        <div class="row" id="navTopMenu">
+			<div class="col-lg-10"></div>
+			<div class="col-lg-1"><button class="form-control" style="background:none;border:none;" ui-sref="equipos.agregarequipo">Volver</button></div>
+		</div>
+            <div class="row" id="navInven">
+                <div class="col-lg-3 col-sm-3">
+                    <h2 style="color:#fff;"><img src="img/assets/logow.png"> | Inventario</h2>
+                </div>
+                <div class="col-lg-1 col-sm-1"></div>
+
+                <div class="col-lg-3 col-sm-3" ><label style="color:#fff">Sucursal</label>
+                    <select class="form-control animated fadeInRight" name="sucursal" id="sucursal"
+                            ng-options="sucursal.nombre for sucursal in dataSucursal.sucursales track by sucursal.id"
+                            ng-model="dataSucursal.sucursalMod">
+                        <option value="">Seleccione una sucursal</option>
+                    </select>
+                </div>
+                
+                <div class="col-lg-3 col-sm-3"><label style="color:#fff">Categoria</label>
+                    <select class="form-control animated fadeInRight" name="categoria" id="categoria" 
+                            ng-options="Categoria.nombre for Categoria in data.Categorias track by Categoria.categoriaID"
+                            ng-model="data.catego" ng-change="update(data.catego.categoriaID)">
+                    </select>
+                </div>
+                <div class="col-lg-1" style="padding-top:25px;"><button class="form-control" style="background:none;color:#fff;" ng-click="getEquipobySubcat();">ver</button></div>
+            </div>
+            <div class="row"><br /><br /></div>
+            <div class="row" data-ng-controller="EquiposCtrl">
+                <div class="col-lg-3 col-sm-3" ng-include="'views/subcatSel.html'"></div>
+                <div class="col-lg-8 col-sm-8" ui-view="contenInve"></div>
+            </div>
+        </div>
+
+
+<script type='text/javascript'>
+	var refresh=0;
+	function showEquipment(idsubcat,vista,elemento,bgLi){
+	$( "ul#ListCategorias > li > a" ).css( "background", "#fff" );
+	bgLi.style.background="#ccc";
+		$( "ul#ListCategorias > li > input" ).removeClass( "ItemSelectedCategorie" );
+		var selItemVal=document.getElementById(elemento);
+		selItemVal.classList.add("ItemSelectedCategorie");
+		selSubcat = document.getElementById("SelectedSubcategoriaItem");
+		if (typeof(selSubcat) != 'undefined' && selSubcat != null)
+			{
+				selSubcat.style.display="none";
+			}
+			
+			else{
+			}
+			
+		var sucursal = document.getElementById("selectedSucursal").value;
+		$.post('views/'+vista+'.php',{idsubcat:idsubcat,suc:sucursal}, function(data){
+			$('#reloadInven').html(data);
+			});
+		
+	}
+	function loadSubCatSelect(idCategoria,vista,elemento,bgLi){
+	
+		$( "ul#ListCategorias > li > a" ).css( "background", "#fff" );
+		bgLi.style.background="#ccc";
+		$( "ul#ListCategorias > li > input" ).removeClass( "ItemSelectedCategorie" );
+		var selItemVal=document.getElementById(elemento);
+		selItemVal.classList.add("ItemSelectedCategorie");
+		
+		$.post('views/reloadSelectSubcat.php',{IdCategoria:idCategoria,vista:vista}, function(data){
+			$('#loadSubcat').html(data);
+			});
+	}
+	function loadOnChangeSucursal(){
+		var visible=false;
+
+		var idCategoria=document.getElementsByClassName("ItemSelectedCategorie");
+		if (typeof(idCategoria[0]) != 'undefined' && idCategoria[0] != null)
+			{
+			var idSubCategoria=idCategoria[0].id;
+			var sucursal = document.getElementById("selectedSucursal").value;
+			
+				
+				var newid=0;
+			
+				var selSubcat = document.getElementById("selectedSubcategoria");
+				//Si el select de subcategoria no es nulo
+				if (idSubCategoria!=2017 && idSubCategoria!=2018 && idSubCategoria!=2020)
+					{
+						newid=selSubcat.value;
+					
+					}
+					else{
+						newid=idSubCategoria;
+					
+					}
+					$.post('views/CardioContent.php',{idsubcat:newid,suc:sucursal}, function(data){
+					$('#reloadInven').html(data);
+					});	
+			}
+			else{
+			}
+	}
+</script>
+

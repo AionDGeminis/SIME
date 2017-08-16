@@ -1,0 +1,54 @@
+﻿<div class="animated fadeInLeft" ng-controller="EquiposCtrl">
+    <div ng-if="valAction == 0"></div>
+
+    <div ng-if="valAction == 1">
+        <hr />
+        
+        <div class="row">
+            <div class="col-lg-8 text-center"><h4>Seleccione el equipo y periodo</h4></div>
+            <div class="col-lg-3"><h4>Seleccione las tareas para el mantenimiento</h4></div>
+        </div>
+        <div class="col-lg-8" style="padding-top:10px;">
+            <div class="row col-lg-12">
+                <div class="col-lg-6">
+                    <select class="form-control" ng-options="Categoria.nombre for Categoria in dataCateTask.CategoriasTask track by Categoria.categoriaID"
+                            ng-model="dataCateTask.category" ng-change="updateForTask(dataCateTask.category.categoriaID)">
+                        <option value="">Seleccionar Categoria</option>
+                    </select>
+                </div>
+                <div class="col-lg-6">
+                    <select class="form-control" ng-options="Subcategoria.nombre for Subcategoria in dataSubcaFtask.SubcategoriasTask track by Subcategoria.subcategoriaID"
+                            ng-model="dataSubcaFtask.subcategory">
+                        <option value="">seleccionar Subcategoria</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row col-lg-12"><br />
+                <div class="col-lg-12">
+                    <select class="form-control" ng-options="periodo.nombrePeriodo for periodo in periodoMantenimiento track by periodo.idperiodo" 
+                            ng-model="periodoMantenimiento.periodomant">
+                        <option value="">Periodo de revision</option>
+                    </select>
+                </div>
+            </div>            
+            <div class="col-lg-12 text-center"><br />
+                <div class="row col-lg-12 center-block" style="display:block;margin:auto">
+                   <button type="button" class="btn btn-info" ng-click="saveChecklist();">Guardar lista</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <ul class="sortable-list connectList agile-list">
+                <li ng-repeat="tareas in tareasck">
+                    <input type="checkbox" value='{{tareas.idTarea}}' name="tareasCheck"> {{tareas.nombreTarea}}
+                </li>
+            </ul>
+        </div>
+       
+    </div>
+
+    <div ng-if="valAction == 2">
+        <h3>Has escogido la opcion con el valor 2</h3>
+    </div>
+
+</div>

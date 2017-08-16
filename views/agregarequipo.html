@@ -1,0 +1,220 @@
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="EquiposCtrl">
+<div class="row">
+	<div class="col-lg-10">
+            <div class="ibox float-e-margins">
+                <div class="row wrapper border-bottom white-bg page-heading">
+                    <div class="col-lg-10">
+                        <h2>Registrar equipo</h2>
+                    </div>
+                </div>
+                        <div class="ibox-content">
+                            <form class="form-horizontal" enctype="multipart/form-data" id="toclearform">
+                               
+								<div class="form-group"><label class="col-sm-2 control-label">Nombre</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="Nombre"  data-ng-model="nombreEquipo" id="nombre" class="form-control"></div>
+								</div>
+								<div class="form-group"><label class="col-sm-2 control-label">Modelo</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="Modelo"  data-ng-model="modelo" id="Modelo" class="form-control"></div>
+								</div>
+								<div class="form-group"><label class="col-sm-2 control-label">Marca</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="Marca" id="Marca"  data-ng-model="marcaEquipo" class="form-control"></div>
+								</div>
+                            
+								<div class="form-group"><label class="col-sm-2 control-label" >Categoria</label>
+                                    <div class="col-sm-10">
+
+                                        <select class="form-control" name="CategoriaEquipo" id="equipoCategoria"                                                 
+                                                ng-options="categoria.nombre for categoria in dataCateTask.CategoriasTask track by categoria.categoriaID"
+                                                ng-model="dataCateTask.catego" ng-change="update(dataCateTask.catego.categoriaID)" >
+												<option value="">Seleccione Categoria</option>
+                                        </select>
+									</div>
+                                    
+								</div>
+                               <div class="form-group"><label class="col-sm-2 control-label" >Subcategoria</label>
+                                    <div class="col-sm-10">
+                                        <select  class="form-control" name="SubcategoriaEquipo" id="equipoSubCategoria"
+                                                ng-options="Subcategoria.nombre for Subcategoria in data2.Subcategorias track by Subcategoria.subcategoriaID"
+                                                ng-model="data2.subcategos">
+												<option value="">Seleccione Subcategoria</option>
+                                        </select>
+									</div>
+								</div>
+                                
+                                <div class="form-group"><label class="col-sm-2 control-label">Serializado</label>
+								 <div class="col-sm-10">
+                                        <div class="i-checks"><label><input type="checkbox" onclick="ocultar(this);" id="statusSerial"> <i></i></label></div>
+                                     </div>
+								</div>
+								<div class="form-group check-element animated fadeInLeft" style="display:none;" id='contenSerial'><label class="col-sm-2 control-label">Número de serie</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="Número de serie"  data-ng-model="noserie" id="noserial"  class="form-control " ></div>
+								</div>
+                            
+                                <div class="form-group"><label class="col-sm-2 control-label">Foto</label>
+                                  <div class="col-sm-10">
+                                      <div class="fileinput fileinput-new" data-provides="fileinput" data-ng-model="foto2">
+                                          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                          <div>
+                                              <span class="btn btn-default btn-file"><span class="fileinput-new">Seleccionar imagen</span><span class="fileinput-exists">Cambiar</span><input type="file"  file-model="foto" name="imgUpl" id="imguplo"></span>
+                                              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+                                          </div>
+                                      </div>
+								  </div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Descripcion</label>
+									<div class="col-sm-10"><textarea class="form-control" rows="4" id='areaDescripcion' data-ng-model="descripcion" placeholder='Descripcion'></textarea></div>
+								</div>
+                               
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">                                        
+                                       <button type="button" id="btnAddCategoria"  onclick="validarCampos();" class="btn btn-info">Añadir</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+              </div>
+    </div>
+</div>
+</div>
+<div id='testRegistrobd'>
+	
+</div>
+
+<link href="css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+<!-- Jasny -->
+<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	function ocultar(btn){
+		var box=document.getElementById('contenSerial');
+		if(btn.checked){	
+			box.style.display="inherit";
+		}
+		else{
+			box.style.display="none";
+		}
+	}
+	function chargeSubcategory(valorSel){
+	$.post('views/reloadAddSubcatsel.php',{idcat:valorSel}, function(data){
+		$('#contenSubcat').html(data);
+		});	
+		}	
+	function saveDataequip(serializadoX,serial,areadescripcion,Marca,Modelo){
+	
+	var inputFileImage = document.getElementById("imguplo");
+	var name = document.getElementById("nombre").value;
+	var model = Modelo;
+	var marca = Marca;
+
+	var eCat = document.getElementById("equipoCategoria").value;
+	var eSubcat = document.getElementById("equipoSubCategoria").value;
+	var serializado=serializadoX;
+	var Serial = serial;
+	
+	var areaDes = areadescripcion;
+	var file = inputFileImage.files[0];
+	
+	var data = new FormData();
+	
+	data.append('archivo',file);
+	data.append('nombre',name);
+	data.append('modelo',model);
+	data.append('Marca',marca);
+	data.append('equipocategoria',eCat);
+	data.append('equiposubcategoria',eSubcat);
+	data.append('Seriali',serializado);
+	data.append('noSerie',Serial);
+	data.append('AreaDescripcion',areaDes);
+	
+	
+	var url = "views/PhpApi/GuardarEquipo.php";
+	$.ajax({
+	url:url,
+	type:'POST',
+	contentType:false,
+	data:data,
+	processData:false,
+	cache:false,
+		success: function (data) {	
+			$('#testRegistrobd').html(data);},
+			
+		error: function (r) { 
+                  alert("Error del servidor");
+              }
+	});
+	document.getElementById("toclearform").reset();
+	document.getElementById('contenSerial').style.display="none";
+		$('html, body').animate({ scrollTop: 0 }, 'normal', function () {
+		});
+	}
+	function testValues(){
+		var eCat = document.getElementById("equipoCategoria").value;
+		var eSubcat = document.getElementById("equipoSubCategoria").value;
+		if(eSubcat == ""){
+			eSubcat ="XX";
+		}
+		if(eCat == ""){
+			eCat="Nada";
+		}
+		alert(eCat + "  "+ eSubcat);
+		document.getElementById("toclearform").reset();
+		document.getElementById('contenSerial').style.display="none";
+		$('html, body').animate({ scrollTop: 0 }, 'normal', function () {
+		});
+	}
+	function validarCampos(){
+		var name = document.getElementById("nombre").value;
+		if(name.trim()=="")
+		{
+				alert("Ingresa el nombre del equipo");
+		}
+		else{
+			var eCat = document.getElementById("equipoCategoria").value;
+			if(eCat == "")
+			{
+				alert('debes seleccionar una categoria');
+			}
+			else
+			{	
+				var eSubcat = document.getElementById("equipoSubCategoria").value;
+				if(eSubcat == "")
+				{
+					alert('debes seleccionar una Subcategoria');
+				}else{	
+						var IsSerial=document.getElementById("statusSerial");
+						var serializado=0;
+						var Serial="N/A";
+						var areaDes = document.getElementById("areaDescripcion").value;
+						var marca = document.getElementById("Marca").value;
+						var model = document.getElementById("Modelo").value;
+						if(IsSerial.checked){Serial = document.getElementById("noserial").value;if(Serial.trim()!=""){serializado=1}else{Serial="N/A"}}
+						if(areaDes.trim()==""){areaDes="Sin descripcion";}
+						if(marca.trim()==""){marca = "Desconocida";}
+						if(model.trim()==""){model="N/A";}
+						saveDataequip(serializado,Serial,areaDes,marca,model);
+				}
+			}
+		}
+	}
+</script>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Eliminar</h4>
+      </div>
+      <div class="modal-body">
+        <p>Son correctos estos datos?</p>
+      </div>
+      <div class="modal-footer">
+		<button type="button" class="btn btn-default" onclick='validarCampos()' data-dismiss="modal" id='btnEliminar' onclick="validarCampos()">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

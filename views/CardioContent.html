@@ -1,0 +1,9 @@
+<button ng-click="template='page2'">Show Page 2 Content</button>
+
+<script type="text/ng-template" id="page2">
+   <select class="form-control"  name="Sucursal" ng-controller="SucursalesCtrl">
+                        <option ng-repeat="sucursales in sucursales" value={{sucursales["idSucursal"]}}>{{sucursales["Nombre"]}}</option>
+	</select>
+	dasd
+  </script>
+  

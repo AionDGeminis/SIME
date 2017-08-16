@@ -1,0 +1,101 @@
+         
+
+        <div class="wrapper wrapper-content  animated fadeInRight" ng-controller="IncidenCtrl">
+
+            <div class="row">
+                <div class="text-center m-t-lg">
+                    <div class="ibox-title" style="background:#0a1434; color:white;">
+                        <h1><strong>Tablero de Incidencias</strong></h1>                       
+                    </div><br />
+                </div>
+
+                
+                    <div class="col-lg-4" >
+
+
+                        <div class="ibox">
+
+                            <div class="ibox-content">
+
+                                <h3>Abiertas</h3>
+                                                              
+                                <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="data.inc">
+                                    <li class="{{abierta.abierta}}-element" ng-if="abierta.activa==true" ng-repeat="abierta in data.inc">
+                                        abierto:{{abierta.activa}}<br />
+                                        suspendida:{{abierta.suspendida}}
+                                        <br />proceso:{{abierta.proceso}}<br />
+                                        cerrada:{{abierta.cerrada}}<br />
+                                        <div class="agile-detail">
+                                            <a class="pull-right btn btn-xs btn-white" ng-click="modA(abierta.incidenciaID)">cambiar</a>
+                                            <i class="fa fa-clock-o">ID </i> {{abierta.cerrada}}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" >
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>Suspendidas</h3>
+                                
+                                <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="data.inc">
+    <li class="{{abierta.abierta}}-element" ng-if="abierta.suspendida==true" ng-repeat="abierta in data.inc">
+        abierto:{{abierta.activa}}<br />
+        suspendida:{{abierta.suspendida}}
+        <br />proceso:{{abierta.proceso}}<br />
+        cerrada:{{abierta.cerrada}}<br />
+        <div class="agile-detail">
+            <a class="pull-right btn btn-xs btn-white" ng-click="modA(abierta.incidenciaID)">{{abierta.suspendida}}</a>
+            <i class="fa fa-clock-o">ID </i> {{abierta.cerrada}}
+        </div>
+    </li>
+</ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>En proceso</h3>
+                                
+                                <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="data.inc">
+                                    <li class="{{abierta.abierta}}-element" ng-if="abierta.proceso==true" ng-repeat="abierta in data.inc">
+                                        abierto:{{abierta.activa}}<br />
+                                        suspendida:{{abierta.suspendida}}
+                                        <br />proceso:{{abierta.proceso}}<br />
+                                        cerrada:{{abierta.cerrada}}<br />
+                                        <div class="agile-detail">
+                                            <a class="pull-right btn btn-xs btn-white" ng-click="modA(abierta.incidenciaID)">otracosapasaber</a>
+                                            <i class="fa fa-clock-o">ID </i> {{abierta.cerrada}}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <h4>
+                        Incidencias en serie
+                    </h4>
+
+                    <div class="output p-m m white-bg">
+
+                        <h3>Abiertas</h3>
+                        {{data.inc }}
+
+                        <h3>En proceso</h3>
+                        {{inProgressList }}
+
+                        <h3>Cerradas</h3>
+                        {{completedList}}
+
+                    </div>
+                </div>
+            </div>            
+        </div>

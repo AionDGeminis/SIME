@@ -1,0 +1,37 @@
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="AreasCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="text-center m-t-lg">
+                    <div class="ibox-title" style="background:#0a1434; color:white;">
+                        <h1><strong>Lista de Incidencias cerradas</strong></h1>
+                    </div><br />
+                </div>
+                <div class="ibox-content">
+                    <table class="table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Sucursal</th>
+                            <th>Area</th>
+                            <th>Usuario registro</th>
+                            <th>Usuario atendio</th>
+                            <th>Fecha registro</th>
+                            <th>Fecha atencion</th>
+                        </tr>
+                        <tr ng-repeat="area in areas">
+                            <td>{{ incidencias.areasID }}</td> 
+                            <td>{{ incidencias.nombrearea }}</td>
+                            <td>{{ incidencias.descripcion}}</td>
+                            <td>{{ incidencias.nombresucursal}}</td>
+                            <td>{{ incidencias.nombreusuario}}</td>
+                            <td>{{ incidencias.Activo}}</td>
+                            <td>{{ incidencias.fechaIngreso}}</td>
+                        </tr>
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

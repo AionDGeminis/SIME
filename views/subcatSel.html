@@ -1,0 +1,19 @@
+﻿
+<div class="text-center" data-ng-controller="EquiposCtrl">
+    <h3>Todos los equipos ({{dataAllEq.equipo.length}})</h3>
+    <hr />
+    <h4>Subcategorias</h4><br />
+    
+    <div ng-repeat="subcategoria in data2.Subcategorias">
+        <div class="cusRadio col-lg-2 col-sm-4"><input type="radio" value="{{subcategoria.subcategoriaID}}" name="radioSelSub" ng-model="data2.subca" onclick="changeColor(this)"></div>
+        <div class="cusRadioLabel col-lg-10 col-sm-8">
+            {{subcategoria.nombre}}
+        </div>
+    </div>
+</div>
+<script>
+    function changeColor(input) {
+        $("div.cusRadio > input").css("background", "#ecf0f1");
+        input.style.background = "#95a5a6";
+    }
+</script>

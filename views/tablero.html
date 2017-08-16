@@ -1,0 +1,37 @@
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="AreasCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title" style="background:#233545; color:white;">
+                    <h5>Lista de areas</h5>
+
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+                    <table class="table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Area</th>
+                            <th>Descripcion</th>
+                            <th>Sucursal</th>
+                            <th>Usuario Encargado</th>
+                            <th>Activo</th>
+                            <th>Fecha de Ingreso</th>
+                        </tr>
+                        <tr ng-repeat="area in areas">
+                            <td>{{ area.areasID }}</td> 
+                            <td>{{ area.nombrearea }}</td>
+                            <td>{{ area.descripcion}}</td>
+                            <td>{{ area.nombresucursal}}</td>
+                            <td>{{ area.nombreusuario}}</td>
+                            <td>{{ area.Activo}}</td>
+                            <td>{{ area.fechaIngreso}}</td>
+                        </tr>
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
